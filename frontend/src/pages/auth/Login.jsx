@@ -32,8 +32,10 @@ export default function Login() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     setError("");
     setNotice("");
 
@@ -47,17 +49,23 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Demo-only credentials. Do not use frontend-only authentication in production.
       let user = null;
 
-      if (normalizedEmail === "admin@gmail.com" && password === "1234") {
+      // ADMIN LOGIN
+      if (
+        normalizedEmail === "admin@gmail.com" &&
+        password === "1234"
+      ) {
         user = {
           id: "demo-admin",
           name: "Admin",
           email: "admin@gmail.com",
           role: "admin",
         };
-      } else if (
+      }
+
+      // CUSTOMER LOGIN
+      else if (
         normalizedEmail === "customer@gmail.com" &&
         password === "1234"
       ) {
@@ -69,24 +77,34 @@ export default function Login() {
         };
       }
 
+      // INVALID LOGIN
       if (!user) {
         setError("Incorrect email address or password.");
         return;
       }
 
-      // These values support frontend demo routing only.
-      // A real backend should issue and validate the authentication token.
+      // SAVE LOGIN INFORMATION
       localStorage.setItem("autocare_token", "demo-token");
-      localStorage.setItem("autocare_user", JSON.stringify(user));
-
-      navigate(
-        user.role === "admin" ? "/admin/Dashboard" : "/customer/Dashboard",
-        { replace: true }
+      localStorage.setItem(
+        "autocare_user",
+        JSON.stringify(user)
       );
+
+      // REDIRECT BASED ON USER ROLE
+      if (user.role === "admin") {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/customer/dashboard", { replace: true });
+      }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
 
   const showNotice = (message) => {
     setError("");

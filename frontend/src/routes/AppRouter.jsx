@@ -15,11 +15,11 @@ import MyBookings from "../pages/customer/MyBookings.jsx";
 import MyProfile from "../pages/customer/MyProfile.jsx";
 
 // Admin layout and pages
-// import AdminLayout from "../layouts/AdminLayout.jsx";
-// import AdminDashboard from "../pages/admin/Dashboard.jsx";
-// import AdminBookings from "../pages/admin/Bookings.jsx";
-// import ServiceCategories from "../pages/admin/ServiceCategories.jsx";
-// import AdminCustomers from "../pages/admin/Customers.jsx";
+import AdminLayout from "../layouts/AdminLayout.jsx";
+import AdminDashboard from "../pages/admin/Dashboard.jsx";
+import AdminBookings from "../pages/admin/Bookings.jsx";
+import ServiceCategories from "../pages/admin/ServiceCategories.jsx";
+import AdminCustomers from "../pages/admin/Customers.jsx";
 // import AdminSettings from "../pages/admin/Settings.jsx";
 
 export default function AppRouter() {
@@ -43,18 +43,14 @@ export default function AppRouter() {
       </Route>
 
       {/* Admin routes */}
-      {/* <Route path="/admin" element={<AdminLayout />}>
+      <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Navigate to="dashboard" replace />} />
-
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="bookings" element={<AdminBookings />} />
-        <Route
-          path="service-categories"
-          element={<ServiceCategories />}
-        />
+        <Route path="service-categories" element={<ServiceCategories />} />
         <Route path="customers" element={<AdminCustomers />} />
-        <Route path="settings" element={<AdminSettings />} />
-      </Route> */}
+         {/*<Route path="settings" element={<AdminSettings />} /> */}
+      </Route>
 
       {/* Redirect unknown routes */}
       <Route path="*" element={<Navigate to="/" replace />} />
